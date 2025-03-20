@@ -74,7 +74,10 @@ export function fetch(url: string, options?: RequestInit): Promise<Response> {
     for (const item of new Headers(_headers || {})) {
       headers[item[0]] = item[1];
     }
-    return window.__TAURI__
+    if (typeof window.__TAURI__?.core?.invoke !== "function") {
+      return Promise.reject(new Error("Tauri invoke 未初始化"));
+    }
+    return window.__TAURI__.core
       .invoke("stream_fetch", {
         method: method.toUpperCase(),
         url,

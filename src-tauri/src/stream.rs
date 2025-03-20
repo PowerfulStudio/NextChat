@@ -9,6 +9,8 @@ use futures_util::{StreamExt};
 use reqwest::Client;
 use reqwest::header::{HeaderName, HeaderMap};
 
+use tauri::Emitter;
+
 static REQUEST_COUNTER: AtomicU32 = AtomicU32::new(0);
 
 #[derive(Debug, Clone, serde::Serialize)]
